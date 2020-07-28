@@ -1,0 +1,42 @@
+/*
+Requrements:
+PR Destination branch should be named as development
+credential:  
+    BitbucketUser
+    SonarQube
+
+Need to create an additional parameter called 'webhookToken' which will contain stash-sonar-webhook-token    
+*/
+def environmentFileName = 'para.groovy'
+// def sharedServiceAWSProfileName = 'agileedgedocker'
+pipeline {
+
+    agent any
+
+    stages {
+        stage('Clean Workspace') {
+            steps { 
+                cleanWs()
+            }
+        }
+
+        stage('Download Application Codebase') {
+            steps { 
+               sh 'echo ${BUILD_NUMBER}'
+               git credentialsId: ${env.git_cr} , url: ${env.git_url}
+
+                load "./${environmentFileName}"
+
+               }
+            
+            }
+       stage('Checkout Source') {
+            steps {
+               sh 'echo ${env.name}'
+               
+      }
+    }
+
+    }
+
+}
