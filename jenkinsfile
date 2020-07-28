@@ -11,6 +11,14 @@ def environmentFileName = 'para.groovy'
 // def sharedServiceAWSProfileName = 'agileedgedocker'
 pipeline {
 
+   environment {
+  
+    git_cr = 'GIT_CR'
+    git_url = 'https://github.com/sandipchatterjee540/jenkins-paramiter-geniric-way.git'
+    
+  }
+
+
     agent any
 
     stages {
@@ -20,14 +28,19 @@ pipeline {
             }
         }
 
+        stage('Download Application Codebase') {
+            steps { 
+               sh 'echo ${BUILD_NUMBER}'
+               git credentialsId: ${git_cr} , url: ${git_url}
+
+                load "./${environmentFileName}"
+
+               }
+            
+            }
        stage('Checkout Source') {
             steps {
                sh 'echo ${env.name}'
-               sh 'echo ${env.git_cr}'
-               
-               
-               
-               
                load "./${environmentFileName}"
                
       }
