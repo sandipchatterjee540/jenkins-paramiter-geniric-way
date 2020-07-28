@@ -20,19 +20,15 @@ pipeline {
             }
         }
 
-        stage('Download Application Codebase') {
-            steps { 
-               sh 'echo ${BUILD_NUMBER}'
-               git credentialsId: ${env.git_cr} , url: ${env.git_url}
-
-                load "./${environmentFileName}"
-
-               }
-            
-            }
        stage('Checkout Source') {
             steps {
                sh 'echo ${env.name}'
+               sh 'echo ${env.git_cr}'
+               
+               
+               
+               
+               load "./${environmentFileName}"
                
       }
     }
